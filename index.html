@@ -332,7 +332,7 @@ async function act(action,el){
   if(finished){go('tasks');modal(wasLearn?'这一组，记住了！ ✦':'本轮复习完成！ ✦',`<div class="score celebrate compact-score"><div class="big">✿</div><p>${wasLearn?'所有卡片都已连续两次记住。':'本轮到期卡片都已完成。'}下一次复习已按每张卡的表现安排。</p></div>`,btn('回到任务','close','ghost')+btn('做一次小测试','exam-setup','',`data-id="${attr(t.id)}"`));$('#modal').classList.add('dialog-compact')}return;
  }
  if(action==='cat-open'){filter.cat=el.dataset.cat||'';filter.sub='';filter.page=0;return go('library')}
- if(action==='sub-open'){filter.cat=el.dataset.cat;filter.sub=el.dataset.sub;filter.page=0;return render()}
+ if(action==='sub-open'){filter.cat=el.dataset.cat;filter.sub=el.dataset.sub;filter.page=0;const leftScroll=$('.category-list')?.scrollTop||0;render();requestAnimationFrame(()=>$('.category-list')?.scrollTo({top:leftScroll,left:0,behavior:'instant'}));return}
  if(action==='page-prev'){filter.page--;return render()}if(action==='page-next'){filter.page++;return render()}
  if(action==='select-filtered'){filtered().forEach(e=>selected.add(e.id));return render()}if(action==='select-clear'){selected.clear();return render()}
  if(action==='entry-edit')return editDialog(el.dataset.id);
